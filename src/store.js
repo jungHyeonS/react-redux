@@ -19,7 +19,7 @@ export const deleteTodo = (id) => {
     }
 }
 
-const reducer = (state = ["hello"],action) => {
+const reducer = (state = [],action) => {
     switch(action.type){
         case ADD:
             return [{text:action.text,id:action.id},...state]
