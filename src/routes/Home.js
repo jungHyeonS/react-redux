@@ -1,7 +1,11 @@
 import { useState } from "react";
+import { connect, useSelector } from "react-redux";
 
+// const Home = ({toDos}) => {
 const Home = () => {
     const [text,setText] = useState("");
+
+    const toDos = useSelector((state) => state);
     const onChange = (e) => {
         setText(e.target.value);
     }
@@ -9,6 +13,7 @@ const Home = () => {
         e.preventDefault();
         setText("");
     }
+    console.log(toDos);
     return (
         <>
             <h1>To Do</h1>
@@ -21,4 +26,9 @@ const Home = () => {
     )
 }
 
+// function mapStateToProps(state,ownProps){
+//     return {toDos:state}
+// }
+
+// export default connect(mapStateToProps) (Home);
 export default Home;
