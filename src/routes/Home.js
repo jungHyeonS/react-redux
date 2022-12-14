@@ -7,7 +7,7 @@ import { addToDo } from "../store";
 const Home = () => {
     const [text,setText] = useState("");
     const dispatch = useDispatch();
-    const toDos = useSelector((state) => state);
+    const toDos = useSelector((state) => state.toDos);
     const onChange = (e) => {
         setText(e.target.value);
     }

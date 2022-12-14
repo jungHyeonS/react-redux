@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { deleteTodo } from "../store";
 
 const Todo = ({text,id}) => {
@@ -10,7 +11,10 @@ const Todo = ({text,id}) => {
         dispatch(deleteTodo(id));
     }
     return <li>
-        {text} <button onClick={toDoDelete}>DEL</button>
+        <Link to={`/${id}`}>
+            {text} 
+        </Link>
+        <button onClick={toDoDelete}>DEL</button>
     </li>
 }
 
