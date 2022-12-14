@@ -1,5 +1,6 @@
 import {combineReducers} from "redux"
-import { configureStore ,getDefaultMiddleware} from "@reduxjs/toolkit";
+import { configureStore ,getDefaultMiddleware,createAction,actionC} from "@reduxjs/toolkit";
+
 
 //redux-prsit
 import {persistReducer} from "redux-persist"
@@ -7,30 +8,31 @@ import {persistReducer} from "redux-persist"
 import storage from "redux-persist/lib/storage"
 
 
-const ADD = "ADD";
-const DELETE = "DELETE";
 
-export const addToDo = (text) => {
-    return {
-        type : ADD,
-        text,
-        id:Date.now()
-    }
-}
+export const addToDo = createAction("ADD")
+export const deleteTodo = createAction("DELETE");
+// export const addToDo = (text) => {
+//     return {
+//         type : ADD,
+//         text,
+//         id:Date.now()
+//     }
+// }
 
-export const deleteTodo = (id) => {
-    return{
-        type:DELETE,
-        id
-    }
-}
+
 
 const toDos = (state = [],action) => {
     switch(action.type){
-        case ADD:
-            return [{text:action.text,id:action.id},...state]
-        case DELETE:
-            return state.filter(toDo => toDo.id !== action.id)
+        case addToDo.type:
+            return [
+                {
+                    text:action.payload.text,
+                    id:action.payload.id
+                }
+                ,...state
+            ]
+        case deleteTodo.type:
+            return state.filter(toDo => toDo.id !== action.payload.id)
         default:
             return state
     }
@@ -42,7 +44,7 @@ export const rootReducer = combineReducers({
 })
 
 
-//root 키로 로컬스토리지에 저자 
+//root 키로 로컬스토리지에 저장
 const persistConfig = {
     key: "root",
     storage: storage,

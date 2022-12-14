@@ -13,7 +13,7 @@ const Home = () => {
     }
     const onSubmit = (e) => {
         e.preventDefault();
-        dispatch(addToDo(text))
+        dispatch(addToDo({text:text,id:Date.now()}))
         setText("");
     }
     return (
