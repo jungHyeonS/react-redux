@@ -11,33 +11,6 @@ import storage from "redux-persist/lib/storage"
 
 export const addToDo = createAction("ADD")
 export const deleteTodo = createAction("DELETE");
-// export const addToDo = (text) => {
-//     return {
-//         type : ADD,
-//         text,
-//         id:Date.now()
-//     }
-// }
-
-
-
-// const toDos = (state = [],action) => {
-//     switch(action.type){
-//         case addToDo.type:
-//             return [
-//                 {
-//                     text:action.payload.text,
-//                     id:action.payload.id
-//                 }
-//                 ,...state
-//             ]
-//         case deleteTodo.type:
-//             return state.filter(toDo => toDo.id !== action.payload.id)
-//         default:
-//             return state
-//     }
-// }
-
 
 //새로운 상태를 리턴할수도 있고, 기존 상태를 수정할수도있다
 //redux 내부적으로는 새로운 상태를 리턴해주고 있다
@@ -69,6 +42,8 @@ const persistConfig = {
 
 //persist 리듀서 생성
 const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+//더 나은 개발 경험을 위해 store 설정에 몇몇 기보값을 추가한다
 const store = configureStore({
     reducer: persistedReducer,
 
