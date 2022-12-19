@@ -8,7 +8,7 @@ const Todo = ({text,id}) => {
     const toDoDelete = () => {
 
         //deleteTodo 디스패치 호출
-        dispatch(deleteTodo(id));
+        dispatch(deleteTodo({id}));
     }
     return <li>
         <Link to={`/${id}`}>

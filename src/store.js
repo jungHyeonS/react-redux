@@ -1,5 +1,5 @@
 import {combineReducers} from "redux"
-import { configureStore ,getDefaultMiddleware,createAction,actionC} from "@reduxjs/toolkit";
+import { configureStore ,getDefaultMiddleware,createAction,createReducer} from "@reduxjs/toolkit";
 
 
 //redux-prsit
@@ -21,22 +21,39 @@ export const deleteTodo = createAction("DELETE");
 
 
 
-const toDos = (state = [],action) => {
-    switch(action.type){
-        case addToDo.type:
-            return [
-                {
-                    text:action.payload.text,
-                    id:action.payload.id
-                }
-                ,...state
-            ]
-        case deleteTodo.type:
-            return state.filter(toDo => toDo.id !== action.payload.id)
-        default:
-            return state
+// const toDos = (state = [],action) => {
+//     switch(action.type){
+//         case addToDo.type:
+//             return [
+//                 {
+//                     text:action.payload.text,
+//                     id:action.payload.id
+//                 }
+//                 ,...state
+//             ]
+//         case deleteTodo.type:
+//             return state.filter(toDo => toDo.id !== action.payload.id)
+//         default:
+//             return state
+//     }
+// }
+
+
+//새로운 상태를 리턴할수도 있고, 기존 상태를 수정할수도있다
+//redux 내부적으로는 새로운 상태를 리턴해주고 있다
+const toDos = createReducer([],{
+    //redux toolkit 에서는 state 를 변경할수있다
+    [addToDo] : (state,action) => {
+        state.push({
+            text:action.payload.text,
+            id:action.payload.id    
+        })
+    },
+    [deleteTodo] : (state,action) => {
+        return state.filter(toDo => toDo.id !== action.payload.id)
     }
-}
+        
+})
 
 //리듀서는 하나로 묶는다
 export const rootReducer = combineReducers({
